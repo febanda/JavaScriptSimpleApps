@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding JavaScript's Capture</title>
+</head>
+<body class="bod">
+
+  <div class="one">
+    <div class="two">
+      <div class="three">
+      </div>
+    </div>
+  </div>
+
+<style>
+  html {
+    box-sizing: border-box;
+  }
+  
+  *, *:before, *:after { 
+    box-sizing: inherit; 
+  }
+
+  div {
+    width: 100%;
+    padding: 100px;
+  }
+
+  .one {
+    background: thistle;
+  }
+
+  .two {
+    background: mistyrose;
+  }
+
+  .three {
+    background: coral;
+  }
+</style>
+
+<button></button>
+<script>
+    const divs = document.querySelectorAll('div')
+    const button = document.querySelector('button')
+
+    function logText(e){
+        console.log(this.classList.value)
+        //e.stopPropogation() // stop bubbling
+    }
+
+    divs.forEach(div => {
+        div.addEventListener('click', logText, {
+            capture: false,
+            once: true,
+        })
+    })
+
+    button.addEventListener('click', () => {
+        console.log('Clicked!')
+    }, {
+        once: true 
+    })
+
+
+
+</script>
+</body>
+</html>
+
+
+
+//Propagation, Bubbling, event capturing and once 
+
+//Bubbling - where the browser will figure what you clicked on but will trigger clicks up, will ripple up to the top of the document and trigger clicks on those elements as well 
+
+//Capture - the function will run on the way down instead of running on the way up like bubbling 
+
+//e.stopPropagation - This stops the event from bubbling up or you can run it in conjuction with capture so that it stops at the top element 
+
+//Once - listens for a click once and then unbinds itself so that there is no future clicks on it. Good feature for store check outs 
+
+
+
+
+
+
+
